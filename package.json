@@ -1,0 +1,29 @@
+{
+  "name": "cli-adapter",
+  "version": "1.0.0",
+  "description": "Adapter for exposing command-line tools are RESTful web services",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint *.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "cli",
+    "http",
+    "rest",
+    "adapter"
+  ],
+  "author": "Dennis Wolters",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^3.11.1",
+    "eslint-config-google": "^0.7.1",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "fs-promise": "^1.0.0",
+    "raw-body": "^2.1.7"
+  }
+}
