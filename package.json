@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint *.js",
+    "lint": "eslint *.js **/*.js",
     "dev": "nodemon server.js"
   },
   "keywords": [
@@ -25,7 +25,9 @@
   "dependencies": {
     "camelcase": "^4.1.0",
     "config": "^1.26.1",
+    "express": "^4.15.3",
     "fs-promise": "^1.0.0",
+    "jsonfile": "^3.0.1",
     "raw-body": "^2.1.7"
   }
 }
