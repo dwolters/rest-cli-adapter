@@ -18,6 +18,7 @@
     "Promise": true
   },
   "rules": {
+    "guard-for-in": 0,
     //Allow console statements
     "no-console": 0,
     //Ignore linebreak-style. Git does a proper conversion.
