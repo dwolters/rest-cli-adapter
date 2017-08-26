@@ -1,5 +1,5 @@
 {
     "port": 8080,
     "host": "localhost",
-    "spec": "pandoc.swagger.json"
+    "spec": "example.swagger.json"
 }
