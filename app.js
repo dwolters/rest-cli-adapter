@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const express = require('express');
 const config = require('config');
 const jsonfile = require('jsonfile').readFileSync;
@@ -17,5 +19,10 @@ for(let path in spec.paths) {
         app[method](basePath + openapi.expressPath(path), cli(endpoint['x-cli']));
     }
 }
+
+// provide spec
+app.use('/spec', express.Router().get('/', (req, res) => {
+    res.status(200).json(JSON.parse(fs.readFileSync(path.join(__dirname, config.get('spec'))).toString()));
+}));
 
 module.exports = app;
