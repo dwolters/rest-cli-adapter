@@ -18,10 +18,9 @@ let config = {
     spec: program.args[0],
 };
 
-console.log(`Starting adapter with config: ${JSON.stringify(config)}\n`);
-console.log('Current working directory is:', __dirname);
+console.log(`Starting adapter with config: ${JSON.stringify(config)}`);
 
-let server = spawn('node', [path.join(__dirname, 'server.js')], { env: { NODE_CONFIG: JSON.stringify(config) } });
+let server = spawn('node', [path.join(__dirname, 'server.js')], { env: { NODE_CONFIG: JSON.stringify(config) }, shell: true });
 
 server.stdout.pipe(process.stdout);
 server.stderr.pipe(process.stderr);
