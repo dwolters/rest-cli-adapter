@@ -19,6 +19,7 @@ let config = {
 };
 
 console.log(`Starting adapter with config: ${JSON.stringify(config)}\n`);
+console.log('Current working directory is:', __dirname);
 
 let server = spawn('node', [path.join(__dirname, 'server.js')], { env: { NODE_CONFIG: JSON.stringify(config) } });
 
