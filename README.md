@@ -1,7 +1,8 @@
 # Adapting CLI to RESTful HTTP API
 This adapter allows to easily enrich a command-line tool with a RESTful HTTP API. For this, only an OpenAPI specification with some custom properties is required.
 
-## Configuration
+
+## OpenAPI Specification Format
 
 To configure the adapter, an OpenAPI specification has to be provided that describes the HTTP API. For each method of a path, it must be specified which command-line tool shall be executed when the method is invoked. To define this, a custom field called `x-cli` needs to be provided for every method. The following options can be specified:
 
@@ -30,3 +31,27 @@ function(value) {
 - `headers` (object): Defines additional headers for the HTTP response. Variables can be used to define header values as well.
 
 
+## Invocation
+
+If the adapter is listed as a dependency for another NPM package, it provides a command line interface to invoke the corresponding server at a specified address with a given OpenAPI specification:
+
+```
+Usage: serve-cli [options] <path-to-service-description>
+
+  Makes a CLI tool available as a RESTful web service using the provided OpenAPI 2.0 (fka Swagger) service description.
+
+
+  Options:
+
+    -V, --version      output the version number
+    -i, --ip <ip>      specify host IP address (defaults to 0.0.0.0)
+    -p, --port <port>  specify port (defaults to 80)
+    -h, --help         output usage information
+```
+
+Example:
+```
+serve-cli -i localhost -p 8080 examples/pandoc.swagger.json
+```
+
+It is also possible to set the parameters by navigating to the `/config` folder and creating a copy of `default.json-example` as `default.json`.
