@@ -22,7 +22,7 @@ for(let path in spec.paths) {
 
 // provide spec
 app.use('/spec', express.Router().get('/', (req, res) => {
-    res.status(200).json(JSON.parse(fs.readFileSync(path.join(__dirname, config.get('spec'))).toString()));
+    res.status(200).json(JSON.parse(fs.readFileSync(path.join(process.cwd(), config.get('spec'))).toString()));
 }));
 
 module.exports = app;
