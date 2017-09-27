@@ -2,7 +2,7 @@ const camelcase = require('camelcase');
 
 /**
  * Replaces all parameters in the given args array and returns a new args array which contains the parameter values.
- * @param {Array} args Args array with paramters
+ * @param {Array} args Args array with parameters
  * @param {Object} params Parameters
  * @return {Array} Args array containing parameter values
  */
@@ -28,7 +28,7 @@ function mapArgs(args, params) {
 
 /**
  * Replaces all parameters in the given response headers and returns a new headers object which contains the parameter values.
- * @param {Object} headers Response headers with paramters
+ * @param {Object} headers Response headers with parameters
  * @param {Object} params Parameters
  * @return {Object} Response headers with parameter values
  */
@@ -92,6 +92,14 @@ function mapParams(options, request) {
             }
         }
     }
+    Object.keys(request.query).forEach((key) => {
+        params['=' + key] = request.query[key];
+        params[':' + key] = request.query[key];
+    });
+    Object.keys(request.params).forEach((key) => {
+        params['=' + key] = request.params[key];
+        params[':' + key] = request.params[key];
+    });
     return params;
 }
 

@@ -13,7 +13,7 @@ const parameter = require('./parameter');
  */
 function execute(executable, args, stdin) {
     return new Promise((resolve, reject) => {
-        let process = spawn(executable, args);
+        let process = spawn(executable, args, {shell: true});
 
         let stderr = '';
         let stdout = '';
