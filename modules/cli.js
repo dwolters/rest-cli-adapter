@@ -13,21 +13,21 @@ const parameter = require('./parameter');
  */
 function execute(executable, args, stdin) {
     return new Promise((resolve, reject) => {
-        let process = spawn(executable, args, {shell: true});
+        let p = spawn(executable, args, {shell: true, env: process.env});
 
         let stderr = '';
         let stdout = '';
 
-        process.on('error', (err) => reject(err));
+        p.on('error', (err) => reject(err));
 
-        process.stderr.on('data', (data) => stderr += data);
-        process.stdout.on('data', (data) => stdout += data);
+        p.stderr.on('data', (data) => stderr += data);
+        p.stdout.on('data', (data) => stdout += data);
 
         if (Buffer.isBuffer(stdin)) {
-            process.stdin.write(stdin);
+            p.stdin.write(stdin);
         }
 
-        process.on('close', (code) => {
+        p.on('close', (code) => {
             console.log('Finished with exit code:', code);
             if (code === 0) {
                 resolve(stdout);
