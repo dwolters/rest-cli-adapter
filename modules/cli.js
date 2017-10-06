@@ -76,8 +76,12 @@ function createRequestHandler(options) {
                 console.error('Error during execution: ', err);
             })
             .then(() => {
-                fs.unlink(params.inputFile);
-                fs.unlink(params.outputFile);
+                if (options.inputToFile) {
+                    fs.unlink(params.inputFile);
+                }
+                if (options.outputFromFile) {
+                    fs.unlink(params.outputFile);
+                }
             });
     };
 }
