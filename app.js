@@ -36,7 +36,7 @@ for(let path in spec.paths) {
 }
 
 // provide spec
-app.use('/spec', express.Router().get('/', (req, res) => {
+app.use('/spec', express.Router().get('/', (req, res) => { // eslint-disable-line new-cap
     res.status(200).json(JSON.parse(fs.readFileSync(path.join(process.cwd(), config.get('spec'))).toString()));
 }));
 

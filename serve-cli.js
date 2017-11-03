@@ -20,7 +20,7 @@ let config = {
 
 console.log(`Starting adapter with config: ${JSON.stringify(config)}`);
 
-let server = spawn('node', [path.join(__dirname, 'server.js')], { env: { NODE_CONFIG: JSON.stringify(config) }, shell: true });
+let server = spawn('node', [path.join(__dirname, 'server.js')], {env: {NODE_CONFIG: JSON.stringify(config)}, shell: true});
 
 server.stdout.pipe(process.stdout);
 server.stderr.pipe(process.stderr);
