@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
+const bodyParser = require('body-parser');
 const config = require('config');
 const jsonfile = require('jsonfile').readFileSync;
 const cli = require('./modules/cli');
@@ -22,6 +23,8 @@ app.use(function(req, res, next) {
         next();
     }
 });
+
+app.use(bodyParser.raw({type: '*/*'}));
 
 const spec = jsonfile(config.get('spec'));
 const basePath = spec.basePath || '';

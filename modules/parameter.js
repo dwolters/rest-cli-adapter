@@ -75,9 +75,11 @@ function mapParams(options, request) {
         inputFile,
         outputFile,
         ':inputFile': inputFile,
-        ':outputFile': outputFile,
         '=inputFile': inputFile,
+        ':outputFile': outputFile,
         '=outputFile': outputFile,
+        ':body': request.body.toString(),
+        '=body': request.body.toString(),
     };
     for (let key in headers) {
         if (headers.hasOwnProperty(key)) {

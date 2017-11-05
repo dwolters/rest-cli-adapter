@@ -1,6 +1,5 @@
 const spawn = require('child_process').spawn;
 const fs = require('fs-promise');
-const rawBody = require('raw-body');
 const parameter = require('./parameter');
 
 /**
@@ -48,7 +47,7 @@ function createRequestHandler(options) {
         let params = parameter.mapParams(options, req);
         let headers = parameter.mapHeaders(options.headers, params);
         let args = parameter.mapArgs(options.args, params);
-        rawBody(req)
+        Promise.resolve(req.body)
             .then((buffer) => {
                 if (options.inputToFile) {
                     fs.writeFile(params.inputFile, buffer);
