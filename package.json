@@ -4,6 +4,9 @@
   "description": "Adapter for exposing command-line tools are RESTful web services",
   "main": "server.js",
   "private": true,
+  "bin": {
+    "serve-cli": "./serve-cli.js"
+  },
   "scripts": {
     "start": "node server.js",
     "lint": "eslint *.js **/*.js",
@@ -23,11 +26,12 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "camelcase": "^4.1.0",
+    "commander": "^2.11.0",
     "config": "^1.26.1",
     "express": "^4.15.3",
     "fs-promise": "^1.0.0",
-    "jsonfile": "^3.0.1",
-    "raw-body": "^2.1.7"
+    "jsonfile": "^3.0.1"
   }
 }

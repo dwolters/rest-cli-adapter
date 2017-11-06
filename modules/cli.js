@@ -1,6 +1,5 @@
 const spawn = require('child_process').spawn;
 const fs = require('fs-promise');
-const rawBody = require('raw-body');
 const parameter = require('./parameter');
 
 /**
@@ -13,21 +12,21 @@ const parameter = require('./parameter');
  */
 function execute(executable, args, stdin) {
     return new Promise((resolve, reject) => {
-        let process = spawn(executable, args);
+        let p = spawn(executable, args, {shell: true, env: process.env});
 
         let stderr = '';
         let stdout = '';
 
-        process.on('error', (err) => reject(err));
+        p.on('error', (err) => reject(err));
 
-        process.stderr.on('data', (data) => stderr += data);
-        process.stdout.on('data', (data) => stdout += data);
+        p.stderr.on('data', (data) => stderr += data);
+        p.stdout.on('data', (data) => stdout += data);
 
         if (Buffer.isBuffer(stdin)) {
-            process.stdin.write(stdin);
+            p.stdin.write(stdin);
         }
 
-        process.on('close', (code) => {
+        p.on('close', (code) => {
             console.log('Finished with exit code:', code);
             if (code === 0) {
                 resolve(stdout);
@@ -48,7 +47,7 @@ function createRequestHandler(options) {
         let params = parameter.mapParams(options, req);
         let headers = parameter.mapHeaders(options.headers, params);
         let args = parameter.mapArgs(options.args, params);
-        rawBody(req)
+        Promise.resolve(req.body)
             .then((buffer) => {
                 if (options.inputToFile) {
                     fs.writeFile(params.inputFile, buffer);
@@ -76,8 +75,12 @@ function createRequestHandler(options) {
                 console.error('Error during execution: ', err);
             })
             .then(() => {
-                fs.unlink(params.inputFile);
-                fs.unlink(params.outputFile);
+                if (options.inputToFile) {
+                    fs.unlink(params.inputFile);
+                }
+                if (options.outputFromFile) {
+                    fs.unlink(params.outputFile);
+                }
             });
     };
 }
