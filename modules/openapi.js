@@ -26,8 +26,8 @@ function check(spec) {
             if(!options) {
                 throw new Error(`No CLI options defined for method ${method} in path ${path}`);
             }
-            if(!options.executable) {
-                throw new Error(`No executable defined for method ${method} in path ${path}`);
+            if(!options.executable && !options.outputFileName) {
+                throw new Error(`No executable or outputFileName defined for method ${method} in path ${path}`);
             }
         }
     }

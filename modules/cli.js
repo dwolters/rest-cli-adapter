@@ -55,7 +55,20 @@ function createRequestHandler(options) {
                 }
                 return buffer;
             })
-            .then((stdin) => execute(options.executable, args, stdin))
+            .then((stdin) => {
+                if (options.executable) {
+                    return execute(options.executable, args, stdin);
+                } else {
+                    if (Array.isArray(args) && args.length > 0) {
+                        throw new Error('Inconsistent: Arguments given but not executable');
+                    } else if (options.outputFileName && options.outputFromFile !== false) {
+                        options.outputFromFile = true;
+                        return '';
+                    } else {
+                        throw new Error('x-cli information inconsistent. See documentation');
+                    }
+                }
+            })
             .then((stdout) => {
                 if (options.outputFromFile) {
                     return fs.readFile(params.outputFile);
@@ -78,7 +91,7 @@ function createRequestHandler(options) {
                 if (options.inputToFile) {
                     fs.unlink(params.inputFile);
                 }
-                if (options.outputFromFile) {
+                if (options.outputFromFile && options.executable) {
                     fs.unlink(params.outputFile);
                 }
             });
